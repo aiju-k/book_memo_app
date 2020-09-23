@@ -1,0 +1,3 @@
+docker-compose.yml
+/php-apache/*.conf
+/php-apache/*.ini
