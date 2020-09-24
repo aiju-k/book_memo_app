@@ -20,7 +20,7 @@
         <div class="collapse navbar-collapse text-light" id="navbar">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="#">投稿画面</a>
+                    <a class="nav-link text-light" href="{{ route('memos.create') }}">投稿画面</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-light" href="#">検索画面</a>

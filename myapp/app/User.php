@@ -36,4 +36,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // memosとの関係を記述
+    public function memos()
+    {
+        return $this->hasMany('\App\Memo');
+    }
 }
