@@ -24,7 +24,7 @@
             <td>{{ $memo->user_id }}</td>
             <td>{{ $memo->book }}</td>
             <td>{{ $memo->author }}</td>
-            <td>{{ $memo->title }}</td>
+            <td><a href="{{ route('memos.detail', ['id' => $memo->id]) }}">{{ $memo->title }}</a></td>
             <td>{{ $memo->updated_at }}</td>
             <td><a href="{{ route('memos.edit', ['id' => $memo->id]) }}"><button type="button" class="btn btn-primary">編集</button></a></td>
             <!-- 削除ボタンとモーダルウィンドウ -->

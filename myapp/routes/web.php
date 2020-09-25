@@ -25,3 +25,5 @@ Route::get('/memos/{id}/edit', 'MemoController@showEditForm')->name('memos.edit'
  Route::post('/memos/{id}/edit', 'MemoController@edit');
  //  削除処理
  Route::post('/memos/{id}/delete', 'MemoController@delete')->name('memos.delete');
+ //一覧画面 
+Route::get('/memos/{id}/detail', 'MemoController@showDetail')->name('memos.detail');

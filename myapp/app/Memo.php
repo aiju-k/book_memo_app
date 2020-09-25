@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Memo extends Model
 {
@@ -13,5 +14,15 @@ class Memo extends Model
     protected $fillable = [
         'book', 'author', 'title', 'content',
     ];
+
+    /**
+     * 最終更新日のフォーマット
+     * @return string
+     */
+    public function getUpdatedAtAttribute()
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $this->attributes['updated_at'])
+        ->format('Y/m/d');    
+    }
 
 }

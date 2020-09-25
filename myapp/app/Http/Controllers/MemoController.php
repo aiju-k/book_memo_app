@@ -13,7 +13,7 @@ class MemoController extends Controller
     //一覧表示
     public function index() {
         // メモデータを最終更新日時が新しい順に取得
-        $memos = DB::table('memos')->orderBy('updated_at', 'desc')->get();
+        $memos = Memo::orderBy('updated_at', 'desc')->get();
 
         
         return view('memos/index', [
@@ -84,5 +84,16 @@ class MemoController extends Controller
         Memo::destroy($id);
         
         return redirect()->route('memos.index');
+    }
+
+    // メモ詳細画面表示
+    public function showDetail(int $id) {
+        $memo = Memo::find($id);
+        $user = User::find($memo->user_id);
+
+        return view('memos/detail', [
+            'memo' => $memo,
+            'user' => $user,
+        ]);
     }
 }
