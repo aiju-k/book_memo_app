@@ -2,49 +2,51 @@
 @section('title', 'メモ投稿一覧')
 @section('content')
     <!-- 見出し -->
-    <h1 class="text-success text-center">メモ投稿一覧</h1>
+    <h1 class="text-success text-center">メモ投稿画面</h1>
 
     <div class="container">
         <div class="row">
-            <div class="col col-md-offset-3 col-md-6">
+            <div class="col col-lg-10 mx-auto">
                 <nav class="card">
-                    <div class="card-header">タスクを編集する</div>
+                    <div class="card-header text-center">メモを投稿する</div>
                     <div class="card-body">
                         <form
-                            action="{{ route('memos.edit', ['folder' => $task->folder_id, 'task' => $task->id]) }}"
+                            action="{{ route('memos.edit', ['id' => $memo->id]) }}"
                             method="POST"
                         >
                         @csrf
                         <div class="form-group">
-                            <label for="title">タイトル</label>
+                            <label for="book">著書名</label>
+                            <input type="text" class="form-control" name="book" id="book"
+                                value="{{ old('book') ?? $memo->book }}" />
+                            @if($errors->has('book'))
+                                <div class="alert alert-danger">
+                                    {{ $errors->first('book') }}
+                                </div>
+                            @endif
+                            <label for="author">作者名</label>
+                            <input type="text" class="form-control" name="author" id="author"
+                                value="{{ old('author') ?? $memo->author }}" />
+                            @if($errors->has('author'))
+                                <div class="alert alert-danger">
+                                    {{ $errors->first('author') }}
+                                </div>
+                            @endif
+                            <label for="title">メモのタイトル</label>
                             <input type="text" class="form-control" name="title" id="title"
-                                value="{{ old('title') ?? $task->title }}" />
+                                value="{{ old('title') ?? $memo->title }}" />
                             @if($errors->has('title'))
                                 <div class="alert alert-danger">
                                     {{ $errors->first('title') }}
                                 </div>
                             @endif
-                        </div>
-                        <div class="form-group">
-                            <label for="status">状態</label>
-                            <select name="status" id="status" class="form-control">
-                            @foreach(\App\Task::STATUS as $key => $val)
-                                <option
-                                    value="{{ $key }}"
-                                    {{ $key == old('status', $task->status) ? 'selected' : '' }}
-                                >
-                                {{ $val['label'] }}
-                                </option>
-                            @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="due_date">期限</label>
-                            <input type="text" class="form-control" name="due_date" id="due_date"
-                                value="{{ old('due_date') ?? $task->formatted_due_date }}" />
-                            @if($errors->has('due_date'))
+                            <label for="content">内容</label>
+                            <br>
+                            <textarea rows="3" class="form-control" name="content" id="content">{{ old('content') ?? $memo->content }}
+                            </textarea>
+                            @if($errors->has('content'))
                                 <div class="alert alert-danger">
-                                    {{ $errors->first('due_date') }}
+                                    {{ $errors->first('content') }}
                                 </div>
                             @endif
                         </div>

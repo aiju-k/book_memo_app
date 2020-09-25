@@ -18,7 +18,7 @@
                         <div class="form-group">
                             <label for="book">著書名</label>
                             <input type="text" class="form-control" name="book" id="book"
-                                value="{{ old('book') ?? $memo->book }}" />
+                                value="{{ old('book') }}" />
                             @if($errors->has('book'))
                                 <div class="alert alert-danger">
                                     {{ $errors->first('book') }}
@@ -26,7 +26,7 @@
                             @endif
                             <label for="author">作者名</label>
                             <input type="text" class="form-control" name="author" id="author"
-                                value="{{ old('author') ?? $memo->author }}" />
+                                value="{{ old('author') }}" />
                             @if($errors->has('author'))
                                 <div class="alert alert-danger">
                                     {{ $errors->first('author') }}
@@ -34,7 +34,7 @@
                             @endif
                             <label for="title">メモのタイトル</label>
                             <input type="text" class="form-control" name="title" id="title"
-                                value="{{ old('title') ?? $memo->title }}" />
+                                value="{{ old('title') }}" />
                             @if($errors->has('title'))
                                 <div class="alert alert-danger">
                                     {{ $errors->first('title') }}
@@ -42,8 +42,8 @@
                             @endif
                             <label for="content">内容</label>
                             <br>
-                            <textarea rows="3" class="form-control" name="content" id="content"
-                                value="{{ old('content') ?? $memo->content }}">
+                            <textarea rows="3" class="form-control" name="content" id="content">
+                            {!! nl2br(e(old('content'))) !!}
                             </textarea>
                             @if($errors->has('content'))
                                 <div class="alert alert-danger">

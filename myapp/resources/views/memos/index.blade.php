@@ -29,13 +29,7 @@
             <td><a href="{{ route('memos.edit', ['id' => $memo->id]) }}"><button type="button" class="btn btn-primary">編集</button></a></td>
             <!-- 削除ボタンとモーダルウィンドウ -->
             <td>
-              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
-                削除
-              </button>
-              
-              @endforeach
-            </tr>
-
+              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">削除</button>              
               <!-- モーダルの設定 -->
               <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
                 <div class="modal-dialog">
@@ -51,12 +45,17 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">いいえ</button>
-                      <a href=""><button type="submit" class="btn btn-danger">はい</button></a>
+                      <form action="{{ route('memos.delete', ['id' => $memo->id]) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-danger">はい</button>
+                      </form>
                     </div><!-- /.modal-footer -->
                   </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
               </div><!-- /.modal -->
-          </td>
+            </td>
+            @endforeach
+          </tr>
         </tbody>
 
     </table>

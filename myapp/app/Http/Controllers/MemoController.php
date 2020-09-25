@@ -47,12 +47,11 @@ class MemoController extends Controller
         // インスタンスに代入した値をDBに書き込む
         $memo->save();
 
-        return redirect()->route('memos.index', [
-            'id' => $memo->id,
-        ]);
+        return redirect()->route('memos.index');
     }
 
-    public function edit($id)
+    // 編集画面表示
+    public function showEditForm($id)
     {
         // idに該当するメモデータを取得
         $memo = Memo::find($id);
@@ -60,5 +59,30 @@ class MemoController extends Controller
         return view('memos/edit', [
             'memo' => $memo,
         ]);
+    }
+
+    // 編集処理
+    public function edit(int $id, CreateMemo $request) {
+        // 現在のユーザーを取得
+        $memo = Memo::find($id);
+
+        // 入力値を代入
+        $memo->book = $request->book;
+        $memo->author = $request->author;
+        $memo->title = $request->title;
+        $memo->content = $request->content;
+
+        $memo->user_id = 1;
+        // インスタンスに代入した値をDBに書き込む
+        $memo->save();
+
+        return redirect()->route('memos.index');
+    }
+
+    // 削除処理(物理削除)
+    public function delete(int $id) {
+        Memo::destroy($id);
+        
+        return redirect()->route('memos.index');
     }
 }
