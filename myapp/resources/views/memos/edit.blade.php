@@ -1,14 +1,14 @@
 @extends('common.layout')
-@section('title', 'メモ投稿一覧')
+@section('title', 'メモ編集')
 @section('content')
     <!-- 見出し -->
-    <h1 class="text-success text-center">メモ投稿画面</h1>
+    <h1 class="text-success text-center">メモ編集画面</h1>
 
     <div class="container">
         <div class="row">
             <div class="col col-lg-10 mx-auto">
                 <nav class="card">
-                    <div class="card-header text-center">メモを投稿する</div>
+                    <div class="card-header text-center">メモを編集する</div>
                     <div class="card-body">
                         <form
                             action="{{ route('memos.edit', ['id' => $memo->id]) }}"

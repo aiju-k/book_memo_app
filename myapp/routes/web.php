@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//初ログイン後ホーム画面 
+Route::get('/', 'HomeController@index')->name('home');
 //一覧画面 
 Route::get('/memos/index', 'MemoController@index')->name('memos.index');
 // 新規投稿画面表示
