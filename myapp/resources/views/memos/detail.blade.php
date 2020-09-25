@@ -35,7 +35,7 @@
             <!-- メモ -->
             <div class="col col-5 col-xl-4 ml-3">
                 <h2>メモ</h2>
-                <p>投稿者：{{ $user->name }}</p>
+                <p>投稿者：{{ Auth::user()->name }}</p>
                 <p>タイトル：{{ $memo->title }}</p>
                 <p>内容：</p>
                 <p>{{ $memo->content }}</p>

@@ -24,9 +24,12 @@
         
     <header>
         <nav class="navbar navbar-light bg-info text-light mb-3">
-            <h1 class="mb-0 text-center">ぶくメモ(仮)</h1>
+            <h1 class="mb-0 text-center">ぶくメモ</h1>
             <div class="text-light" id="navbar">
-                <button class="btn btn-success my-2 my-sm-0" type="submit">ログアウト</button>
+                <form action="{{ route('logout') }}" method="post">
+                    @csrf
+                    <button class="btn btn-success my-2 my-sm-0" type="submit">ログアウト</button>
+                </form>
             </div>
         </nav>
     </header>
@@ -35,8 +38,8 @@
     <div class="container text-center mb-5">
         <div class="row">
             <div class="col col-lg-7 mx-auto">
-                <h2>{{ $user->name }}さん</h2>
-                <h1 class="border-bottom">ぶくメモ（仮）へようこそ！</h1>
+                <h2>{{ Auth::user()->name }}さん</h2>
+                <h1 class="border-bottom">ぶくメモへようこそ！</h1>
             </div>
         </div>
     </div>
