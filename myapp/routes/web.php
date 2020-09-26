@@ -18,7 +18,8 @@ use Illuminate\Support\Facades\Auth;
 Auth::routes();
 
 
-Route::middleware('auth')->group(function() {        
+Route::middleware('auth')->group(function() {
+
     //初ログイン後ホーム画面 
     Route::get('/', 'HomeController@index')->name('home');
     //一覧画面 
@@ -27,13 +28,19 @@ Route::middleware('auth')->group(function() {
     Route::get('/memos/create', 'MemoController@showCreateForm')->name('memos.create');
     // 新規投稿処理
     Route::post('/memos/create', 'MemoController@create');
-    // 編集画面
-    Route::get('/memos/{id}/edit', 'MemoController@showEditForm')->name('memos.edit');
-    // 編集処理
-    Route::post('/memos/{id}/edit', 'MemoController@edit');
-    //  削除処理
-    Route::post('/memos/{id}/delete', 'MemoController@delete')->name('memos.delete');
-    //一覧画面 
-    Route::get('/memos/{id}/detail', 'MemoController@showDetail')->name('memos.detail');
+    //詳細画面 
+    Route::get('/memos/{memo}/detail', 'MemoController@showDetail')->name('memos.detail');
+    //マイページ画面 
+    Route::get('/user/mypage', 'MemoController@showMyPage')->name('mypage');
     
+    // 閲覧制限
+    Route::middleware('can:view,memo')->group(function() {
+        // 編集画面
+        Route::get('/memos/{memo}/edit', 'MemoController@showEditForm')->name('memos.edit');
+        // 編集処理
+        Route::post('/memos/{memo}/edit', 'MemoController@edit');
+        //  削除処理
+        Route::post('/memos/{memo}/destroy', 'MemoController@destroy')->name('memos.destroy');
+
+    });
 });

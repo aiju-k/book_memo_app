@@ -11,7 +11,7 @@
                     <div class="card-header text-center">メモを編集する</div>
                     <div class="card-body">
                         <form
-                            action="{{ route('memos.edit', ['id' => $memo->id]) }}"
+                            action="{{ route('memos.edit', ['memo' => $memo->id]) }}"
                             method="POST"
                         >
                         @csrf

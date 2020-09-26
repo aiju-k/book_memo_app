@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CreateMemo;
 use App\Memo;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class MemoController extends Controller
@@ -13,11 +14,13 @@ class MemoController extends Controller
     //一覧表示
     public function index() {
         // メモデータを最終更新日時が新しい順に取得
-        $memos = Memo::orderBy('updated_at', 'desc')->get();
+        $memos = Memo::orderBy('updated_at', 'desc')->paginate(10);
 
-        
+        // $names = $memos->user->name;
+        // dd($names);
         return view('memos/index', [
             'memos' => $memos,
+            // 'names' => $names,
         ]);
     }
 
@@ -43,18 +46,19 @@ class MemoController extends Controller
         $memo->title = $request->title;
         $memo->content = $request->content;
 
-        $memo->user_id = 1;
-        // インスタンスに代入した値をDBに書き込む
-        $memo->save();
+        // インスタンスに代入した値を、ユーザーに紐付けてDBに書き込む
+        Auth::user()->memos()->save($memo);
 
         return redirect()->route('memos.index');
     }
 
     // 編集画面表示
-    public function showEditForm($id)
+    public function showEditForm(Memo $memo)
     {
-        // idに該当するメモデータを取得
-        $memo = Memo::find($id);
+        // ユーザーと投稿者が異なる場合はエラー画面
+        if (Auth::user()->id !== $memo->user_id) {
+            abort(403);
+        };
 
         return view('memos/edit', [
             'memo' => $memo,
@@ -62,9 +66,7 @@ class MemoController extends Controller
     }
 
     // 編集処理
-    public function edit(int $id, CreateMemo $request) {
-        // 現在のユーザーを取得
-        $memo = Memo::find($id);
+    public function edit(Memo $memo, CreateMemo $request) {
 
         // 入力値を代入
         $memo->book = $request->book;
@@ -72,28 +74,43 @@ class MemoController extends Controller
         $memo->title = $request->title;
         $memo->content = $request->content;
 
-        $memo->user_id = 1;
-        // インスタンスに代入した値をDBに書き込む
-        $memo->save();
+        // インスタンスに代入した値を、ユーザーに紐付けてDBに書き込む
+        Auth::user()->memos()->save($memo);
 
         return redirect()->route('memos.index');
     }
 
     // 削除処理(物理削除)
-    public function delete(int $id) {
-        Memo::destroy($id);
+    public function destroy(Memo $memo) {
+        Memo::destroy($memo);
         
         return redirect()->route('memos.index');
     }
 
     // メモ詳細画面表示
-    public function showDetail(int $id) {
-        $memo = Memo::find($id);
+    public function showDetail(Memo $memo) {
         $user = User::find($memo->user_id);
 
         return view('memos/detail', [
             'memo' => $memo,
             'user' => $user,
+        ]);
+    }
+
+    // ログインユーザーのメモ一覧・ユーザー情報
+    public function showMyPage() {
+
+        // ログインユーザー取得
+        $user = Auth::user();
+
+        // userのidとmemoのuser_idが一致するレコードを取得
+        $memos = Memo::where('user_id', $user->id)->orderBy('updated_at', 'desc')->paginate(10);
+
+        // viewにユーザーとメモを渡す
+        return view('user/mypage', [
+            'user_name' => $user->name,
+            'user_email' => $user->email,
+            'memos' => $memos,
         ]);
     }
 }

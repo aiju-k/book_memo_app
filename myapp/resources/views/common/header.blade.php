@@ -25,10 +25,13 @@
             <div class="collapse navbar-collapse text-light align-items-end" id="navbar">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item ">
+                        <a class="nav-link text-light" href="{{ route('memos.index') }}">記事一覧画面</a>
+                    </li>
+                    <li class="nav-item ">
                         <a class="nav-link text-light" href="{{ route('memos.create') }}">投稿画面</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-light" href="#">{{ Auth::user()->name }}さん</a>
+                        <a class="nav-link text-light" href="{{ route('mypage') }}">{{ Auth::user()->name }}さん</a>
                     </li>
                 </ul>
 

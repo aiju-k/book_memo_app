@@ -25,4 +25,9 @@ class Memo extends Model
         ->format('Y/m/d');    
     }
 
+    // userとのリレーション。投稿は1人の投稿者を持つ
+    public function user() {
+        return $this->belongsTo('App\User');
+    }
+
 }
