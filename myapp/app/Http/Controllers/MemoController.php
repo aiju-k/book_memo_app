@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\CreateMemo;
+use App\Http\Requests\MemoRequest;
 use App\Memo;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -36,7 +36,7 @@ class MemoController extends Controller
     }
 
     // 投稿処理
-    public function create(CreateMemo $request) {
+    public function create(MemoRequest $request) {
         // 現在のユーザーを取得
         $memo = new Memo();
 
@@ -55,18 +55,13 @@ class MemoController extends Controller
     // 編集画面表示
     public function showEditForm(Memo $memo)
     {
-        // ユーザーと投稿者が異なる場合はエラー画面
-        if (Auth::user()->id !== $memo->user_id) {
-            abort(403);
-        };
-
         return view('memos/edit', [
             'memo' => $memo,
         ]);
     }
 
     // 編集処理
-    public function edit(Memo $memo, CreateMemo $request) {
+    public function edit(Memo $memo, MemoRequest $request) {
 
         // 入力値を代入
         $memo->book = $request->book;
