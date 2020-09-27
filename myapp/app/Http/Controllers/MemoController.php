@@ -98,6 +98,16 @@ class MemoController extends Controller
         // ログインユーザー取得
         $user = Auth::user();
 
+        // メモのレコードがなければメモを渡さない
+        $isExists = Memo::where('user_id', $user->id)->exists();
+        if ($isExists === false){
+            return view('user/mypage', [
+                'user_name' => $user->name,
+                'user_email' => $user->email,
+                'memos' => null,
+            ]); 
+        }
+
         // userのidとmemoのuser_idが一致するレコードを取得
         $memos = Memo::where('user_id', $user->id)->orderBy('updated_at', 'desc')->paginate(10);
 

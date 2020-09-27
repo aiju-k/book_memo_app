@@ -28,7 +28,7 @@
             <td>{{ $memo->updated_at }}</td>
 
             <!-- ユーザーと投稿者が一致する場合のみ編集・削除ボタン表示 -->
-            @if (Auth::user()->id === $memo->user_id)
+            @if (Auth::check() && Auth::user()->id === $memo->user_id)
               <td><a href="{{ route('memos.edit', ['memo' => $memo->id]) }}"><button type="button" class="btn btn-primary">編集</button></a></td>
               <!-- 削除ボタンとモーダルウィンドウ -->
               <td>

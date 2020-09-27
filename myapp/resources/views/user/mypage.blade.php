@@ -18,20 +18,24 @@
 </style>
     <div class="text-center">
         <h1>{{ $user_name }}さんの投稿一覧</h1>
+        <p>{{ $user_email }}</p>
     </div>
     <br>
     <br>
 
+    <!-- メモがない場合 -->
     @if (is_null($memos))
-        <h3 class="text-warning text-center">まだ投稿がありません</h3>
-        <div class="container text-center mb-3">
-            <div class="row">
-                <div class="col-10 col-lg-5 mx-auto content">
+    <div class="container text-center mb-3">
+        <div class="row">
+            <div class="col-10 col-lg-5 mx-auto content">
+                <h3 class="text-danger text-center">まだ投稿がありません</h3>
                     <h2 class="mb-1">まずはメモを投稿しよう！</h2>
                     <a href="{{ route('memos.create') }}"><button class="btn btn-primary mb-1">投稿画面へ</button></a>
                 </div>
             </div>
         </div>
+        
+    <!-- メモがある場合 -->
     @else
         @foreach ($memos as $memo)
             <div class="container text-start mb-3">
@@ -48,7 +52,6 @@
                 </div>
             </div>
         @endforeach
-        
         <!-- ページネーション -->
         {{ $memos->links() }}
     @endif

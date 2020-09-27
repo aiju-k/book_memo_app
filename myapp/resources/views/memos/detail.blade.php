@@ -12,9 +12,6 @@
         <div class="row">
             <div class="col">
                 <h1 class="text-center">メモ詳細画面</h1>
-
-                <!-- 投稿者なら編集ボタンを表示 -->
-
             </div>
         </div>
     </div>
@@ -35,7 +32,7 @@
             <!-- メモ -->
             <div class="col col-5 col-xl-4 ml-3">
                 <h2>メモ</h2>
-                <p>投稿者：{{ Auth::user()->name }}</p>
+                <p>投稿者：{{ $memo->user->name }}</p>
                 <p>タイトル：{{ $memo->title }}</p>
                 <p>内容：</p>
                 <p>{{ $memo->content }}</p>
@@ -50,7 +47,13 @@
     <div class="container">
         <div class="row mx-auto">
             <div class="col text-center">
-                <a href="{{ route('memos.index') }}"><button class="btn btn-primary">メモ一覧画面へ</button></a>
+
+                <a href="{{ route('memos.index') }}"><button class="mr-3 btn btn-secondary">メモ一覧画面へ</button></a>
+
+                <!-- 投稿者本人なら編集ボタンを表示 -->
+                @if (Auth::check() && Auth::user()->id === $memo->user_id)
+                    <a href="{{ route('memos.edit', ['memo' => $memo->id]) }}"><button type="button" class="ml-3 btn btn-primary">編集</button></a>
+                @endif
             </div>
         </div>
     </div>

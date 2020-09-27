@@ -17,19 +17,19 @@ use Illuminate\Support\Facades\Auth;
 // 認証機能のルーティング
 Auth::routes();
 
+//一覧画面 
+Route::get('/', 'MemoController@index')->name('memos.index');
+//詳細画面 
+Route::get('/memos/{memo}/detail', 'MemoController@showDetail')->name('memos.detail');
 
 Route::middleware('auth')->group(function() {
-
+    
     //初ログイン後ホーム画面 
-    Route::get('/', 'HomeController@index')->name('home');
-    //一覧画面 
-    Route::get('/memos/index', 'MemoController@index')->name('memos.index');
+    Route::get('/home', 'HomeController@index')->name('home');
     // 新規投稿画面表示
     Route::get('/memos/create', 'MemoController@showCreateForm')->name('memos.create');
     // 新規投稿処理
     Route::post('/memos/create', 'MemoController@create');
-    //詳細画面 
-    Route::get('/memos/{memo}/detail', 'MemoController@showDetail')->name('memos.detail');
     //マイページ画面 
     Route::get('/user/mypage', 'MemoController@showMyPage')->name('mypage');
     
