@@ -22,7 +22,7 @@ class MemoTest extends TestCase
             'book' => '告白',
             'author' => '湊かなえ',
             'title' => '怖い',
-            'content' => 'だいぶ怖い',
+            'content' => '怖い',
         ];
         Auth::loginUsingId($user->id);
         $this->create($user, $memo);
@@ -44,7 +44,7 @@ class MemoTest extends TestCase
             'book' => '告白',
             'author' => '湊かなえ',
             'title' => '怖い',
-            'content' => 'だいぶ怖い',
+            'content' => '怖い',
         ]);
     }
 }

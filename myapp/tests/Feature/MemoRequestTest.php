@@ -82,14 +82,4 @@ class MemoRequestTest extends TestCase
 
         $this->assertEquals($expectedFailed, $validator->failed());
     }
-
-    // public function dataproviderExample()
-    // {
-    //     return [
-    //         '正常' => ['title', 'タイトル', true],
-    //         '必須エラー' => ['title', '', false],
-    //         //str_repeat('a', 256)で、256文字の文字列を作成(aが256個できる)
-    //         '最大文字数エラー' => ['title', str_repeat('a', 256), false],
-    //     ];
-    // }
 }

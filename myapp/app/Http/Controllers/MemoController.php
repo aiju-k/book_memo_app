@@ -77,7 +77,7 @@ class MemoController extends Controller
 
     // 削除処理(物理削除)
     public function destroy(Memo $memo) {
-        Memo::destroy($memo);
+        Memo::destroy($memo->id);
         
         return redirect()->route('memos.index');
     }

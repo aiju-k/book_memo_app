@@ -52,6 +52,21 @@
                         </div>
                     </form>
 
+                    <br>
+
+                    <div class="form-group row">
+                            <p class="col-md-4 text-md-right">テストメール</p>
+
+                            <div class="col-md-6">
+                                <p>testuser@email.com</p>
+                            </div>
+                            <p class="col-md-4 text-md-right">テストパスワード</p>
+
+                            <div class="col-md-6">
+                                <p>testpasswd10</p>
+                            </div>
+                        </div>
+
                     <div class="text-right">
                         <a class="btn btn-link" href="{{ route('password.request') }}">
                             パスワードをお忘れですか？

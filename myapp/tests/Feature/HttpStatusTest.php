@@ -63,8 +63,6 @@ class HttpStatusTest extends TestCase
      */
     public function testIndex()
     {
-        // ログイン前
-        
         // ログイン後
         $user = factory(User::class)->create();
 
