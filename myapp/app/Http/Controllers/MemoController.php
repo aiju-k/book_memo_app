@@ -16,8 +16,6 @@ class MemoController extends Controller
         // メモデータを最終更新日時が新しい順に取得
         $memos = Memo::orderBy('updated_at', 'desc')->paginate(10);
 
-        // $names = $memos->user->name;
-        // dd($names);
         return view('memos/index', [
             'memos' => $memos,
             // 'names' => $names,
@@ -117,5 +115,52 @@ class MemoController extends Controller
             'user_email' => $user->email,
             'memos' => $memos,
         ]);
+    }
+
+    // 検索画面表示
+    public function showSearchForm() {
+        return view('memos/search');
+    }
+
+    // 検索処理
+    public function search(Memo $memo, Request $request) {
+
+        // 値をセット
+        if (strlen($request->book) !== 0) {
+            $book = $request->book;
+        }
+        if (strlen($request->author) !== 0) {
+            $author = $request->author;
+        }
+
+        // どちらも入力されていなければエラーを返す
+        if (empty($book) && empty($author)) {
+            $message = '検索内容を入力してください';
+            return view('memos/search', [
+                'message' => $message,
+            ]);
+        }
+
+        // 検索
+        // 著書名だけ入力された場合
+        if (!empty($book) && empty($author)) {
+            $memos = $memo->where('book','like', '%'.$book.'%')->orderBy('updated_at', 'desc')->paginate(10);
+            $count = $memos->count();
+        }
+        // 著者だけ入力された場合
+        if (empty($book) && !empty($author)) {
+            $memos = $memo->where('author','like', '%'.$author.'%')->orderBy('updated_at', 'desc')->paginate(10);
+            $count = $memos->count();
+        }
+        // 両方入力された場合
+        if (!empty($book) && !empty($author)) {
+            $memos = $memo->where('book','like', '%'.$book.'%', 'AND', 'author','like', '%'.$author.'%')->orderBy('updated_at', 'desc')->paginate(10);
+            $count = $memos->count();
+        }
+
+        return view('memos/search', [
+            'memos' => $memos,
+            'count' => $count,
+            ]);
     }
 }

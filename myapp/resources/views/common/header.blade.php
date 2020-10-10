@@ -30,6 +30,9 @@
                     <li class="nav-item ">
                         <a class="nav-link text-light" href="{{ route('memos.create') }}">投稿画面</a>
                     </li>
+                    <li class="nav-item ">
+                        <a class="nav-link text-light" href="{{ route('memos.search') }}">検索画面へ</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link text-light" href="{{ route('mypage') }}">{{ Auth::user()->name }}さん</a>
                     </li>
@@ -47,6 +50,16 @@
             <nav class="navbar navbar-expand-md text-light bg-light">
 
                 <h1 class="text-success mb-0 logo">ぶくメモ</h1>
+                <div class="mr-auto">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item ">
+                            <a class="nav-link text-info" href="{{ route('memos.index') }}">一覧画面へ</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link text-info" href="{{ route('memos.search') }}">検索画面へ</a>
+                        </li>
+                    </ul>
+                </div>
                 <div class="ml-auto">
                     <a href="{{ route('login') }}"><button class="btn btn-outline-success" type="submit">ログイン</button></a>
                     <a href="{{ route('register') }}"><button class="btn btn-outline-success" type="submit">会員登録</button></a>

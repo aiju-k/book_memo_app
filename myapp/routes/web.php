@@ -21,6 +21,10 @@ Auth::routes();
 Route::get('/', 'MemoController@index')->name('memos.index');
 //詳細画面 
 Route::get('/memos/{memo}/detail', 'MemoController@showDetail')->name('memos.detail');
+// 検索画面
+Route::get('/memos/search', 'MemoController@showSearchForm')->name('memos.search');
+// 検索処理&結果表示
+Route::post('/memos/search', 'MemoController@search');
 
 Route::middleware('auth')->group(function() {
     
