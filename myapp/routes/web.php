@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\Auth;
 // 認証機能のルーティング
 Auth::routes();
 
+// Twitterログイン機能のルーティング
+Route::get('login/twitter', 'Auth\LoginController@redirectToTwitterProvider')->name('login.twitter');
+Route::get('login/twitter/callback', 'Auth\LoginController@handleTwitterProviderCallback');
+
 //一覧画面 
 Route::get('/', 'MemoController@index')->name('memos.index');
 //詳細画面 

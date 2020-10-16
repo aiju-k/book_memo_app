@@ -68,6 +68,11 @@
                         </div>
 
                     <div class="text-right">
+                        <a class="btn btn-link" href="{{ route('login.twitter') }}">
+                            Twitterログイン
+                        </a>
+                    </div>
+                    <div class="text-right">
                         <a class="btn btn-link" href="{{ route('password.request') }}">
                             パスワードをお忘れですか？
                         </a>
