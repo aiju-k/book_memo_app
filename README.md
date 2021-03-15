@@ -23,18 +23,23 @@
 9. ログイン機能
 10. ソーシャルログイン(Twitter)機能
 11. パスワード再設定機能
-12. テスト機能
 
 ## 使用技術
 
 ***
 
-* mac OS Catalina 10.15.6
-* docker-compose
-* Laravel 6.18.40
-* PHP 7.4.9
-* apache 2.4.38
-* bootstrap 4.5.1
-* MySQL 5.7.31
-* AWS Linux2
-* EC2 
+* 環境：mac OS Catalina 10.15.6
+* インフラ：
+  * mac OS Catalina 10.15.6
+  * Docker 20.10.5 / docker-compose 1.28.5
+  * apache 2.4.38
+  * AWS(EC2,ALB,ACM,Route53)
+* データベース：
+  * MySQL 5.7.31
+  * PHPMyAdmin
+* フロントエンド：
+  * HTML/CSS
+  * bootstrap 4.5.1
+* バックエンド：
+  * PHP 7.4.9
+  * Laravel 6.18.40
