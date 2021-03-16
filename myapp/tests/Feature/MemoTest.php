@@ -9,42 +9,32 @@ use App\User;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
-
+use Illuminate\Foundation\Testing\WithoutMiddleware; // csrfミドルウエアを無効化(POSTリクエストのテストのため)
 class MemoTest extends TestCase
 {
     use DatabaseTransactions;
-
-    public function testMemoController()
-    {
-        $user = factory(User::class)->create();
-        $memo = [
-            'user_id' => $user->id,
-            'book' => '告白',
-            'author' => '湊かなえ',
-            'title' => '怖い',
-            'content' => '怖い',
-        ];
-        Auth::loginUsingId($user->id);
-        $this->create($user, $memo);
-    }
+    use WithoutMiddleware;
 
     /**
      * メモ投稿テスト
      *
      * @return void
      */
-    private function create($user, $memo)
+    public function testCreate()
     {
-        $response = $this->actingAs($user)
+        $user = factory(User::class)->create();
+        // $memo = factory(Memo::class)->create();
+        $this->actingAs($user)
              ->get(route('memos.create'));
-        
-        $this->post('/memos/create', $memo);
-        $this->assertDatabaseHas('memos', [
+        $memo = [
             'user_id' => $user->id,
-            'book' => '告白',
-            'author' => '湊かなえ',
-            'title' => '怖い',
-            'content' => '怖い',
-        ]);
+            'book' => 'test',
+            'author' => 'test',
+            'title' => 'test',
+            'content' => 'test',
+        ];
+        $response = $this->post('/memos/create', $memo);
+        $response->assertRedirect('/');
+        $this->assertDatabaseHas('memos', $memo);
     }
 }
